@@ -1,0 +1,38 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: itsm-ticket-api
+  labels:
+    app: itsm-ticket-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: itsm-ticket-api
+  template:
+    metadata:
+      labels:
+        app: itsm-ticket-api
+    spec:
+      containers:
+        - name: itsm-ticket-api
+          image: itsm-ticket-api:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: itsm-ticket-api-config
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 20

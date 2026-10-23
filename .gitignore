@@ -29,3 +29,16 @@ override.tf.json
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Python virtual environments
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Test and coverage artifacts
+.coverage
+htmlcov/
+.pytest_cache/
